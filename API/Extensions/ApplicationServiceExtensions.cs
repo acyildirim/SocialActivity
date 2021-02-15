@@ -14,16 +14,15 @@ namespace API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services,
          IConfiguration config)
         {
-            
             services.AddDbContext<DataContext>(opt =>
-            {
-                opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
-            });
+          {
+              opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+          });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
-            services.AddCors(opt => 
+            services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
@@ -32,7 +31,7 @@ namespace API.Extensions
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
-
+            
             return services;
         }
     }
