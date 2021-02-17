@@ -17,6 +17,8 @@ function App() {
   const[editMode, setEditMode] = useState(false);
   //Loading Indicator
   const [loading, setLoading] = useState(true);
+  //Submitting
+  const [submitting, setSubmitting] = useState(false);
 
 
   // we use [] to prevent endless loop, it will run only one time
@@ -52,15 +54,32 @@ function App() {
   }
   // Create Or Edit Activity
   function handleCreateOrEditActivity(activity : Activity) {
-    activity.id 
-    ? setActivities([...activities.filter(x => x.id !== activity.id), activity])
-    : setActivities([...activities, {...activity, id: uuid()}]);
-    setEditMode(false);
-    setSelectedActivity(activity);
+    setSubmitting(true);
+    if(activity.id){
+      agent.Activities.update(activity).then(() => {
+        setActivities([...activities.filter(x => x.id !== activity.id), activity])
+        setSelectedActivity(activity);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    }
+    else{
+      activity.id = uuid();
+      agent.Activities.create(activity).then(() => {
+        setActivities([...activities, activity]);
+        setSelectedActivity(activity);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    }
   }
 
   function handleDeleteActivity(id : string){
-    setActivities([...activities.filter(x => x.id !== id)]);
+    setSubmitting(true);
+    agent.Activities.delete(id).then(() => {
+      setActivities([...activities.filter(x => x.id !== id)]);
+      setSubmitting(false);
+    })
   }
   // Start Loading Indicator before render jsx
   if (loading) return <LoadingComponent content='Loading Page...'/>
@@ -79,6 +98,7 @@ function App() {
         closeForm={handleFormClose}
         createOrEditActivity={handleCreateOrEditActivity}
         deleteActivity={handleDeleteActivity}
+        submitting={submitting}
         />
       </Container>
     </Fragment>
