@@ -7,15 +7,49 @@ body {
 }
 
 .ui.secondary.top.fixed.menu {
-    background: #ADA996;
+    background: #ada996;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ADA996, #DBDBDB, #F2F2F2, #ADA996);
+    background: -webkit-linear-gradient( to right, #ada996, #dbdbdb, #f2f2f2, #ada996);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ADA996, #DBDBDB, #F2F2F2, #ADA996);
+    background: linear-gradient(to right, #ada996, #dbdbdb, #f2f2f2, #ada996);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .ui.segment,
 .ui.card {
-    background: #DBDBDB;
+    background: #dbdbdb;
 }
+
+.react-calendar {
+    width: 100%;
+    border: none;
+    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+}
+
+
+/*home page styles*/
+
+.masthead {
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient( 135deg, #ada996 0%, #dbdbdb 69%, #f2f2f2 89%) !important;
+    height: 100vh;
+}
+
+.masthead .ui.menu .ui.button,
+.ui.menu a.ui.inverted.button {
+    margin-left: 0.5em;
+}
+
+.masthead h1.ui.header {
+    font-size: 4em;
+    font-weight: normal;
+}
+
+.masthead h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+}
+
+
+/*end home page styles*/
