@@ -12,44 +12,34 @@ namespace API.Controllers
     public class ActivitiesController : BaseApiController
     {
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<Activity>>> GetActivities()
+        public async Task<IActionResult> GetActivities()
         {
-            return Ok(await Mediator.Send(new List.Query())); 
+            return HandleResult(await Mediator.Send(new List.Query()));
         }
 
         [HttpGet("{id}")] // activities/id
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Activity>> GetActivity(Guid id)
+        public async Task<IActionResult> GetActivity(Guid id)
         {
-            return Ok(await Mediator.Send(new Details.Query { Id = id })); 
+            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateActivity(Activity activity)
         {
-            return Ok(await Mediator.Send(new Create.Command { Activity = activity }));
+            return HandleResult(await Mediator.Send(new Create.Command { Activity = activity }));
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> EditActivity(Guid id, Activity activity)
         {
             activity.Id = id;
-            return Ok(await Mediator.Send(new Edit.Command { Activity = activity }));
+            return HandleResult(await Mediator.Send(new Edit.Command { Activity = activity }));
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteActivity(Guid id)
         {
-            return Ok(await Mediator.Send(new Delete.Command { Id = id }));
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
     }
 }
