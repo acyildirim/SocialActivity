@@ -95,6 +95,7 @@ export default observer(function ActivityForm() {
             <MyDateInput
               placeholderText="Date"
               name="date"
+              minDate={new Date()}
               showTimeSelect
               timeFormat="HH:mm"
               timeCaption="time"

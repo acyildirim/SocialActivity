@@ -3,13 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace Persistence
 {
     public class Seed
     {
-        public static async Task SeedData(DataContext context)
+        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
+
+            if(!userManager.Users.Any())
+            {
+                var users = new List<AppUser>
+                {
+                    new AppUser{DisplayName="YILDIRIM", UserName="yildirim", Email="yildirim@test.com"},
+                    new AppUser{DisplayName="HOPP", UserName="hop", Email="hop@test.com"},
+                    new AppUser{DisplayName="Vayy", UserName="vay", Email="vay@test.com"},
+
+                };
+
+                foreach (var user in users)
+                {
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                }
+            }
+
             // Check if there any activity inside the table
             if (context.Activities.Any()) return;
             // if it is empty create new activity list and store activities in this list
