@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Application.Profiles;
 
-namespace Domain
+namespace Application.Activities
 {
-    public class Activity
+    public class ActivityDto
     {
-        // We use GUID because it can be generated on both client and server side 
         public Guid Id { get; set; }
         public string Title { get; set; }
         public DateTime Date { get; set; }
@@ -14,6 +14,7 @@ namespace Domain
         public string City { get; set; }
         public string Venue { get; set; }
         public bool IsCancelled { get; set; }
-        public ICollection<ActivityAttendee> Attendees { get; set; } = new List<ActivityAttendee>();
+        public string HostUsername { get; set; }
+        public ICollection<Profile> Attendees { get; set; }
     }
 }

@@ -1,3 +1,5 @@
+using System.Linq;
+using Application.Activities;
 using AutoMapper;
 using Domain;
 
@@ -8,6 +10,17 @@ namespace Application.Core
         public MappingProfiles()
         {
             CreateMap<Activity, Activity>();
+
+            //Configuring Mapping profile to return what we looking for
+            CreateMap<Activity, ActivityDto>()
+                //Targeting HostUsername and tell where it should map from
+                .ForMember(d => d.HostUsername, o => o.MapFrom(s => s.Attendees
+                .FirstOrDefault(x => x.IsHost).AppUser.UserName));
+            CreateMap<ActivityAttendee, Profiles.Profile>()
+                .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.AppUser.DisplayName))
+                .ForMember(d => d.Username, o => o.MapFrom(s => s.AppUser.UserName))
+                .ForMember(d => d.Bio, o => o.MapFrom(s => s.AppUser.Bio));
+
         }
     }
 }
