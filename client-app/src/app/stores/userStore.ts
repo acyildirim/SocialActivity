@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { history } from "../..";
 import agent from "../api/agent";
+import { Profile } from "../models/profile";
 import { User, UserFormValues } from "../models/user";
 import { store } from "./store";
 
@@ -52,8 +53,12 @@ export default class UserStore {
             throw error;
         }
     }
-    
+    //Helper method to set an image
     setImage = (image : string) => {
         if(this.user) this.user.image = image;
+    }
+    //Helper method to set display name
+    setDisplayName = (name : string) => {
+        if(this.user) this.user.displayName = name;
     }
 }

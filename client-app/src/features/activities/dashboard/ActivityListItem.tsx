@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Icon, Item, Label, Segment } from "semantic-ui-react";
@@ -9,7 +10,7 @@ interface Props {
   activity: Activity;
 }
 
-export default function ActivityListItem({ activity }: Props) {
+export default observer(function ActivityListItem({ activity }: Props) {
   //Handle delete activity by getting React mouse click event and id parameter
   return (
     <Segment.Group>
@@ -71,4 +72,4 @@ export default function ActivityListItem({ activity }: Props) {
       </Segment>
     </Segment.Group>
   );
-}
+})
